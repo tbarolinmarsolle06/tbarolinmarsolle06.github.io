@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thomas Barolin--Marsolle — En cours de formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Tokens (light default) ---------- */
+  :root{
+    --bg:#F4F5F9;
+    --panel:#FFFFFF;
+    --panel-alt:#ECEEF4;
+    --text:#141A2A;
+    --muted:#5B6478;
+    --amber:#C97A16;
+    --teal:#0D8F86;
+    --border:rgba(20,26,42,0.12);
+    --border-strong:rgba(20,26,42,0.22);
+    --radius:5px;
+    --maxw:1120px;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0F1420;
+      --panel:#171E2E;
+      --panel-alt:#1E2740;
+      --text:#EAEEF6;
+      --muted:#8B96AE;
+      --amber:#FFB33E;
+      --teal:#3FD9CC;
+      --border:rgba(255,255,255,0.09);
+      --border-strong:rgba(255,255,255,0.18);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0F1420;
+    --panel:#171E2E;
+    --panel-alt:#1E2740;
+    --text:#EAEEF6;
+    --muted:#8B96AE;
+    --amber:#FFB33E;
+    --teal:#3FD9CC;
+    --border:rgba(255,255,255,0.09);
+    --border-strong:rgba(255,255,255,0.18);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--amber);color:#141A2A;}
+  a{color:inherit;}
+  img{max-width:100%;}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:40;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .navrow{display:flex;align-items:center;justify-content:space-between;height:62px;gap:20px;}
+  .brand{
+    font-family:var(--font-mono);font-size:14px;letter-spacing:.02em;
+    display:flex;align-items:center;gap:8px;flex:0 0 auto;
+  }
+  .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);
+    box-shadow:0 0 0 3px color-mix(in srgb, var(--teal) 20%, transparent);}
+  nav.links{
+    display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;
+  }
+  nav.links::-webkit-scrollbar{display:none;}
+  nav.links a{
+    font-family:var(--font-mono);font-size:13px;white-space:nowrap;
+    text-decoration:none;color:var(--muted);padding:8px 12px;border-radius:var(--radius);
+    transition:color .15s ease, background .15s ease;
+  }
+  nav.links a:hover{color:var(--text);background:var(--panel-alt);}
+  nav.links a:focus-visible, a:focus-visible, button:focus-visible{
+    outline:2px solid var(--amber);outline-offset:2px;
+  }
+
+  /* ---------- Section scaffolding ---------- */
+  section{padding:76px 0;border-bottom:1px solid var(--border);scroll-margin-top:70px;}
+  section:last-of-type{border-bottom:none;}
+  .kicker{
+    font-family:var(--font-mono);font-size:13px;color:var(--teal);
+    display:flex;align-items:center;gap:8px;margin-bottom:14px;
+  }
+  .kicker::before{content:'>';color:var(--amber);}
+  h2{
+    font-family:var(--font-display);font-weight:600;font-size:clamp(1.5rem,3vw,2rem);
+    margin:0 0 28px 0;letter-spacing:-0.01em;
+  }
+  .prose{max-width:640px;color:var(--muted);}
+  .prose strong{color:var(--text);font-weight:500;}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:64px 0 76px;}
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:start;
+  }
+  .hero h1{
+    font-family:var(--font-display);font-weight:700;
+    font-size:clamp(2.3rem,6vw,3.6rem);
+    line-height:1.02;letter-spacing:-0.02em;margin:0 0 18px 0;
+  }
+  .hero h1 span{display:block;}
+  .role-line{
+    font-family:var(--font-mono);font-size:16px;color:var(--amber);margin-bottom:20px;
+  }
+  .hero-sub{color:var(--muted);max-width:480px;margin-bottom:28px;}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px;}
+  .pill{
+    font-family:var(--font-mono);font-size:12.5px;color:var(--muted);
+    border:1px solid var(--border-strong);border-radius:999px;padding:5px 12px;
+  }
+
+  .term{
+    background:var(--panel);border:1px solid var(--border-strong);border-radius:var(--radius);
+    font-family:var(--font-mono);font-size:13.5px;overflow:hidden;
+  }
+  .term-bar{
+    display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--border);
+  }
+  .term-bar span{width:9px;height:9px;border-radius:50%;background:var(--border-strong);}
+  .term-body{padding:18px 18px 22px;color:var(--muted);}
+  .term-body .ln{margin:0 0 9px 0;}
+  .term-body .prompt{color:var(--teal);}
+  .term-body .out{color:var(--text);margin-left:14px;}
+  .cursor{
+    display:inline-block;width:7px;height:14px;background:var(--amber);
+    margin-left:2px;vertical-align:-2px;
+    animation:blink 1s step-end infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .cursor{animation:none;opacity:1;} }
+  @keyframes blink{ 50%{opacity:0;} }
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 260px;gap:48px;}
+  .fact{border-top:1px solid var(--border);padding:12px 0;}
+  .fact:first-child{border-top:none;}
+  .fact .k{font-family:var(--font-mono);font-size:12px;color:var(--muted);}
+  .fact .v{font-size:14.5px;margin-top:3px;}
+
+  /* ---------- Experience timeline ---------- */
+  .timeline{position:relative;max-width:1000px;}
+  .titem{
+    display:grid;grid-template-columns:12px 150px minmax(0,1fr);gap:16px;position:relative;padding-bottom:44px;
+  }
+  .titem:last-child{padding-bottom:0;}
+  .trail{position:relative;}
+  .trail::before{
+    content:'';position:absolute;left:5px;top:6px;bottom:-44px;width:1px;background:var(--border-strong);
+  }
+  .titem:last-child .trail::before{display:none;}
+  .node{
+    position:absolute;left:0;top:4px;width:11px;height:11px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--teal);
+  }
+  .tdate{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);padding-top:2px;}
+  .tcard{
+    min-width:0;
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;
+  }
+  .tcard h3{font-family:var(--font-display);font-size:17px;margin:0 0 3px 0;font-weight:600;}
+  .tcard .org{font-family:var(--font-mono);font-size:12.5px;color:var(--amber);margin-bottom:14px;}
+  .tcard ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px;}
+  .tcard li{margin-bottom:6px;}
+  .tcard li strong{color:var(--text);font-weight:500;}
+
+  /* ---------- Skills rack ---------- */
+  .rack{
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
+    padding:6px;margin-bottom:16px;
+  }
+  .rack-label{
+    font-family:var(--font-mono);font-size:11.5px;color:var(--muted);padding:12px 14px 4px;
+  }
+  .ports{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+  .port{
+    background:var(--panel);display:flex;align-items:center;gap:9px;padding:12px 14px;font-size:13.5px;
+    justify-content:space-between;
+  }
+  .port-name{display:flex;align-items:center;gap:9px;}
+  .led{width:7px;height:7px;border-radius:50%;background:var(--teal);flex:0 0 auto;
+    box-shadow:0 0 0 3px color-mix(in srgb, var(--teal) 16%, transparent);}
+  .level{
+    font-family:var(--font-mono);font-size:11px;color:var(--muted);
+    border:1px solid var(--border-strong);border-radius:999px;padding:3px 9px;flex:0 0 auto;
+  }
+  .traits{display:flex;flex-wrap:wrap;gap:9px;}
+  .trait{
+    font-size:13.5px;border:1px solid var(--border-strong);border-radius:999px;padding:6px 14px;color:var(--muted);
+  }
+
+  /* ---------- Formation ---------- */
+  .edu{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .edu-card{border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;background:var(--panel);}
+  .edu-card .yr{font-family:var(--font-mono);font-size:12.5px;color:var(--teal);margin-bottom:8px;}
+  .edu-card h3{font-family:var(--font-display);font-size:16px;margin:0 0 4px;font-weight:600;}
+  .edu-card p{color:var(--muted);font-size:14px;margin:2px 0 0;}
+
+  /* ---------- Langues / Passions ---------- */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .box{border:1px solid var(--border);border-radius:var(--radius);padding:24px;background:var(--panel);}
+  .box h3{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);margin:0 0 16px;font-weight:400;}
+  .row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--border);font-size:14.5px;}
+  .row:first-of-type{border-top:none;}
+  .row span:last-child{color:var(--muted);font-family:var(--font-mono);font-size:12.5px;}
+
+  /* ---------- Contact / footer ---------- */
+  footer{padding:70px 0 50px;}
+  .contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:end;}
+  .contact-title{font-family:var(--font-display);font-weight:700;font-size:clamp(1.7rem,4vw,2.5rem);
+    letter-spacing:-0.01em;margin:0 0 16px;}
+  .cta{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--amber);color:#141A2A;font-weight:600;text-decoration:none;
+    padding:13px 22px;border-radius:var(--radius);font-size:14.5px;
+    transition:opacity .15s ease;
+  }
+  .cta:hover{opacity:.88;}
+  .contact-list .row{border-top:1px solid var(--border);}
+  .fineprint{margin-top:46px;font-family:var(--font-mono);font-size:12px;color:var(--muted);
+    border-top:1px solid var(--border);padding-top:20px;}
+
+  @media (max-width:840px){
+    .hero-grid, .about-grid, .edu, .two-col, .contact-grid{grid-template-columns:1fr;}
+    .titem{grid-template-columns:1fr;}
+    .trail{display:none;}
+    .trail::before{display:none;}
+    .node{display:none;}
+    .ports{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:520px){
+    .ports{grid-template-columns:1fr;}
+    section{padding:52px 0;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap navrow">
+    <div class="brand"><span class="dot"></span>TB—M</div>
+    <nav class="links">
+      <a href="#apropos">À propos</a>
+      <a href="#experience">Expérience</a>
+      <a href="#competences">Compétences</a>
+      <a href="#formation">Formation</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" id="haut" style="border-bottom:1px solid var(--border);">
+    <div class="hero-grid">
+      <div>
+        <h1><span>Thomas</span><span>Barolin—Marsolle</span></h1>
+        <div class="role-line">En cours de formation</div>
+        <p class="hero-sub">Étudiant en BTS SIO, option SISR, à la recherche d'expériences en infrastructure et support informatique. Calme, rigoureux, déterminé.</p>
+        <div class="hero-meta">
+          <span class="pill">Paris / Île-de-France</span>
+          <span class="pill">BTS SIO — SISR, 2ᵉ année</span>
+          <span class="pill">Disponible en stage / alternance</span>
+        </div>
+      </div>
+      <div class="term">
+        <div class="term-bar"><span></span><span></span><span></span></div>
+        <div class="term-body">
+          <p class="ln"><span class="prompt">$</span> whoami</p>
+          <p class="ln out">Thomas BAROLIN—MARSOLLE</p>
+          <p class="ln"><span class="prompt">$</span> role</p>
+          <p class="ln out">En cours de formation</p>
+          <p class="ln"><span class="prompt">$</span> formation</p>
+          <p class="ln out">BTS SIO SISR — Lycée Le Rebours, Paris</p>
+          <p class="ln"><span class="prompt">$</span> objectif</p>
+          <p class="ln out">BTS → Licence → Master<span class="cursor"></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="apropos">
+    <div class="kicker">apropos</div>
+    <div class="about-grid">
+      <div class="prose">
+        <p>Je termine actuellement mon <strong>BTS Services Informatiques aux Organisations</strong>, option SISR (solutions d'infrastructure, systèmes et réseaux). J'ai construit mon expérience en alternant support technique en entreprise et engagement associatif&nbsp;: assistance aux utilisateurs et maintenance des postes chez <strong>LaNetCie</strong>, gestion de tickets et d'infrastructure de datacenter chez <strong>Métaline</strong>, et reconditionnement de matériel sous Linux au <strong>Garage Numérique</strong>.</p>
+        <p>Mon objectif est de valider mon BTS puis de poursuivre en licence puis en master. En parallèle, je prépare mon <strong>BAFA</strong> afin de pouvoir exercer un emploi étudiant et gagner en indépendance.</p>
+      </div>
+      <div>
+        <div class="fact"><div class="k">langue maternelle</div><div class="v">Français</div></div>
+        <div class="fact"><div class="k">anglais</div><div class="v">Niveau A1</div></div>
+        <div class="fact"><div class="k">statut</div><div class="v">Étudiant, 19 ans</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="experience">
+    <div class="kicker">experience --chronologique</div>
+    <h2>Expérience</h2>
+    <div class="timeline">
+
+      <div class="titem">
+        <div class="trail"><div class="node"></div></div>
+        <div class="tdate">Nov. 2024 – déc. 2024<br>Mai 2025 – juin 2025</div>
+        <div class="tcard">
+          <h3>Assistance et services informatiques</h3>
+          <div class="org">LaNetCie — Groslay (95)</div>
+          <ul>
+            <li><strong>Support technique</strong> — participation active aux opérations d'assistance, observation et intervention auprès d'une clientèle diversifiée (175+ clients suivis par l'entreprise).</li>
+            <li><strong>Maintenance informatique</strong> — diagnostic et résolution de problèmes fréquents sur les systèmes.</li>
+            <li><strong>Service client</strong> — accueil et accompagnement des utilisateurs dans leurs demandes de support.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="titem">
+        <div class="trail"><div class="node"></div></div>
+        <div class="tdate">Janv. 2024 – févr. 2024</div>
+        <div class="tcard">
+          <h3>Reconditionnement sous logiciel libre (Linux)</h3>
+          <div class="org">Le Garage Numérique — Paris</div>
+          <ul>
+            <li><strong>Bénévolat</strong> à l'Association du Garage Numérique, spécialisation en reconditionnement informatique sous Linux.</li>
+            <li><strong>Réparation d'ordinateurs</strong> pour les particuliers, sans frais.</li>
+            <li><strong>Installation de systèmes d'exploitation</strong> open-source et configuration matérielle.</li>
+            <li><strong>Formation des usagers</strong> à la prise en main d'outils technologiques variés (ordinateurs, tablettes, téléphones).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="titem">
+        <div class="trail"><div class="node"></div></div>
+        <div class="tdate">Mai 2023 – juin 2023</div>
+        <div class="tcard">
+          <h3>Gestion des tickets et de l'infrastructure</h3>
+          <div class="org">Métaline — Aubervilliers</div>
+          <ul>
+            <li>Contribution à la gestion d'infrastructures de <strong>datacenter</strong>.</li>
+            <li><strong>Gestion des tickets</strong> — suivi rigoureux et résolution des incidents.</li>
+            <li><strong>Maintenance des serveurs</strong> — câblage et entretien régulier.</li>
+            <li><strong>Installation d'équipements</strong> conformément aux normes en vigueur.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="wrap" id="competences">
+    <div class="kicker">competences</div>
+    <h2>Compétences</h2>
+
+    <div class="rack">
+      <div class="rack-label">logiciels</div>
+      <div class="ports">
+        <div class="port"><span class="port-name"><span class="led"></span>Microsoft Word</span><span class="level">débutant</span></div>
+        <div class="port"><span class="port-name"><span class="led"></span>Microsoft Excel</span><span class="level">débutant</span></div>
+        <div class="port"><span class="port-name"><span class="led"></span>Microsoft PowerPoint</span><span class="level">débutant</span></div>
+        <div class="port"><span class="port-name"><span class="led"></span>Cisco Packet Tracer</span><span class="level">débutant</span></div>
+        <div class="port"><span class="port-name"><span class="led"></span>VMware Workstation Player</span><span class="level">débutant</span></div>
+        <div class="port"><span class="port-name"><span class="led"></span>MobaXterm</span><span class="level">débutant</span></div>
+        <div class="port"><span class="port-name"><span class="led"></span>ESET Endpoint Security</span><span class="level">débutant</span></div>
+        <div class="port"><span class="port-name"><span class="led"></span>PuTTY</span><span class="level">débutant</span></div>
+        <div class="port"><span class="port-name"><span class="led"></span>TeamViewer</span><span class="level">débutant</span></div>
+      </div>
+    </div>
+
+    <div class="rack-label" style="padding-left:0;margin-bottom:10px;">savoir-être</div>
+    <div class="traits">
+      <span class="trait">Relationnel</span>
+      <span class="trait">Communication</span>
+      <span class="trait">Créatif</span>
+      <span class="trait">Attentif</span>
+      <span class="trait">Déterminé</span>
+    </div>
+  </section>
+
+  <section class="wrap" id="formation">
+    <div class="kicker">formation</div>
+    <h2>Formation</h2>
+    <div class="edu">
+      <div class="edu-card">
+        <div class="yr">En cours</div>
+        <h3>BTS Services Informatiques aux Organisations — option SISR</h3>
+        <p>Lycée général, technologique et professionnel Le Rebours, Paris (13ᵉ)</p>
+      </div>
+      <div class="edu-card">
+        <div class="yr">2024 – 2025</div>
+        <h3>BAC PRO Système Numérique — option RISC</h3>
+        <p>Lycée général, technologique et professionnel Condorcet, Montreuil (93)</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="passions">
+    <div class="kicker">hors-cadre</div>
+    <h2>Langues &amp; passions</h2>
+    <div class="two-col">
+      <div class="box">
+        <h3>langues</h3>
+        <div class="row"><span>Français</span><span>Maternelle</span></div>
+        <div class="row"><span>Anglais</span><span>A1</span></div>
+      </div>
+      <div class="box">
+        <h3>passions</h3>
+        <div class="row"><span>Sport</span><span>Athlétisme</span></div>
+        <div class="row"><span>Lecture</span><span>Comics, BD, fantasy</span></div>
+        <div class="row"><span>Autres</span><span>Guitare, jeux vidéo, cinéma</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap" id="contact">
+    <div class="kicker">contact</div>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-title">Discutons d'une opportunité.</div>
+        <p class="prose" style="margin-bottom:26px;">Ouvert aux stages et à l'alternance en systèmes et réseaux.</p>
+        <a class="cta" href="/cdn-cgi/l/email-protection#d8acb0b7b5b9abf6bab9aab7b4b1b6e8ee98bfb5b9b1b4f6bbb7b5">Écrire un email</a>
+      </div>
+      <div class="contact-list">
+        <div class="row"><span>Email</span><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f2b3730323e2c713d3e2d303336316f691f38323e3633713c3032">[email&#160;protected]</a></span></div>
+        <div class="row"><span>Téléphone</span><span>+33 7 69 54 14 73</span></div>
+        <div class="row"><span>Localisation</span><span>Paris / Île-de-France</span></div>
+      </div>
+    </div>
+    <div class="fineprint">Thomas Barolin—Marsolle · En cours de formation</div>
+  </footer>
+</main>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
