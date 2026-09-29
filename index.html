@@ -161,7 +161,7 @@
   /* ---------- Experience timeline ---------- */
   .timeline{position:relative;}
   .titem{
-    display:grid;grid-template-columns:150px 1fr;gap:28px;position:relative;padding-bottom:44px;
+    display:grid;grid-template-columns:12px 150px minmax(0, 1fr);gap:28px;position:relative;padding-bottom:44px;
   }
   .titem:last-child{padding-bottom:0;}
   .trail{position:relative;}
@@ -175,6 +175,7 @@
   }
   .tdate{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);padding-top:2px;}
   .tcard{
+    min-width:0;
     background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;
   }
   .tcard h3{font-family:var(--font-display);font-size:17px;margin:0 0 3px 0;font-weight:600;}
@@ -523,12 +524,12 @@
         <div class="contact-title">Discutons d'une opportunité.</div>
         <p class="prose" style="margin-bottom:26px;">Ouvert aux stages et à l'alternance en systèmes et réseaux.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a class="cta" href="mailto:thomas.barolin06@gmail.com">Écrire un email</a>
+          <a class="cta" href="/cdn-cgi/l/email-protection#c5b1adaaa8a4b6eba7a4b7aaa9acabf5f385a2a8a4aca9eba6aaa8">Écrire un email</a>
           <a class="cta cta-alt" href="tel:+33769541473">Appeler</a>
         </div>
       </div>
       <div class="contact-list">
-        <div class="row"><span>Email</span><a href="mailto:thomas.barolin06@gmail.com">thomas.barolin06@gmail.com</a></div>
+        <div class="row"><span>Email</span><a href="/cdn-cgi/l/email-protection#1a6e7275777b6934787b68757673742a2c5a7d777b737634797577"><span class="__cf_email__" data-cfemail="9beff3f4f6fae8b5f9fae9f4f7f2f5abaddbfcf6faf2f7b5f8f4f6">[email&#160;protected]</span></a></div>
         <div class="row"><span>Téléphone</span><a href="tel:+33769541473">+33 7 69 54 14 73</a></div>
         <div class="row"><span>Localisation</span><span>Paris / Île-de-France</span></div>
       </div>
@@ -537,5 +538,6 @@
   </footer>
 </main>
 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
