@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thomas Barolin--Marsolle — En cours de formation</title>
+<!-- Favicon inline TB-M : autonome, sans fichier externe -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230F1420'/%3E%3Cpath d='M10 16h18v7h-5.5v25h-7V23H10zM35 16h9.5c6.2 0 9.5 3.1 9.5 8 0 2.8-1.2 4.8-3.4 6 2.8 1.2 4.4 3.4 4.4 6.7 0 6-3.8 9.3-10.8 9.3H35zm7 6.5v5h2.2c1.9 0 2.8-.9 2.8-2.5s-.9-2.5-2.8-2.5zm0 11.5v5.5h2.8c2.1 0 3.2-.9 3.2-2.8 0-1.8-1.1-2.7-3.2-2.7z' fill='%233FD9CC'/%3E%3Ccircle cx='56' cy='10' r='4' fill='%23FFB33E'/%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -161,7 +164,8 @@
   /* ---------- Experience timeline ---------- */
   .timeline{position:relative;}
   .titem{
-    display:grid;grid-template-columns:12px 150px minmax(0, 1fr);gap:28px;position:relative;padding-bottom:44px;
+    /* Three children (trail, date, card): keep the rail separate from the date. */
+    display:grid;grid-template-columns:12px 150px minmax(0,1fr);gap:16px;position:relative;padding-bottom:44px;
   }
   .titem:last-child{padding-bottom:0;}
   .trail{position:relative;}
@@ -175,7 +179,8 @@
   }
   .tdate{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);padding-top:2px;}
   .tcard{
-    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;min-width:0;
+    min-width:0;
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;
   }
   .tcard h3{font-family:var(--font-display);font-size:17px;margin:0 0 3px 0;font-weight:600;}
   .org-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;}
@@ -263,6 +268,7 @@
     transition:opacity .15s ease;
   }
   .cta:hover{opacity:.88;}
+  .cta svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
   .cta-alt{background:transparent;color:var(--text);border:1px solid var(--border-strong);}
   .cta-alt:hover{background:var(--panel-alt);opacity:1;}
   .contact-list .row{border-top:1px solid var(--border);}
@@ -281,6 +287,39 @@
   @media (max-width:520px){
     .ports{grid-template-columns:1fr;}
     section{padding:52px 0;}
+  }
+
+
+  /* === Animations discrètes au scroll === */
+  /* JS opt-in: without this class, content remains visible as a safe fallback. */
+  body.js-enabled .reveal-target{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .56s ease, transform .56s cubic-bezier(.22,.61,.36,1);
+    will-change:opacity, transform;
+  }
+  body.js-enabled .reveal-target.is-visible{opacity:1;transform:none;}
+
+  /* === Bouton retour en haut === */
+  .back-to-top{
+    position:fixed;right:24px;bottom:24px;z-index:50;
+    width:44px;height:44px;display:grid;place-items:center;
+    border:1px solid var(--border-strong);border-radius:var(--radius);
+    background:color-mix(in srgb, var(--panel) 92%, transparent);
+    color:var(--teal);box-shadow:0 8px 24px rgba(0,0,0,.18);
+    cursor:pointer;opacity:0;visibility:hidden;pointer-events:none;
+    transform:translateY(8px);
+    transition:opacity .2s ease, visibility .2s ease, transform .2s ease,
+      background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .back-to-top.is-visible{opacity:1;visibility:visible;pointer-events:auto;transform:none;}
+  .back-to-top:hover{background:var(--panel-alt);color:var(--amber);border-color:var(--teal);}
+  .back-to-top svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;
+    stroke-linecap:round;stroke-linejoin:round;}
+  @media (max-width:520px){.back-to-top{right:16px;bottom:16px;width:42px;height:42px;}}
+  @media (prefers-reduced-motion: reduce){
+    body.js-enabled .reveal-target{opacity:1;transform:none;transition:none;will-change:auto;}
+    .back-to-top{transition:opacity .15s ease, visibility .15s ease;}
   }
 </style>
 </head>
@@ -526,12 +565,16 @@
         <div class="contact-title">Discutons d'une opportunité.</div>
         <p class="prose" style="margin-bottom:26px;">Ouvert aux stages et à l'alternance en systèmes et réseaux.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a class="cta" href="/cdn-cgi/l/email-protection#b9cdd1d6d4d8ca97dbd8cbd6d5d0d7898ff9ded4d8d0d597dad6d4">Écrire un email</a>
+          <a class="cta" href="/cdn-cgi/l/email-protection#dbafb3b4b6baa8f5b9baa9b4b7b2b5ebed9bbcb6bab2b7f5b8b4b6">Écrire un email</a>
           <a class="cta cta-alt" href="tel:+33769541473">Appeler</a>
+          <a class="cta cta-cv" href="./CV_Thomas_Barolin.pdf" download>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/></svg>
+            Télécharger mon CV
+          </a>
         </div>
       </div>
       <div class="contact-list">
-        <div class="row"><span>Email</span><a href="/cdn-cgi/l/email-protection#3f4b5750525e4c115d5e4d505356510f097f58525e5653115c5052"><span class="__cf_email__" data-cfemail="03776b6c6e62702d6162716c6f6a6d333543646e626a6f2d606c6e">[email&#160;protected]</span></a></div>
+        <div class="row"><span>Email</span><a href="/cdn-cgi/l/email-protection#3f4b5750525e4c115d5e4d505356510f097f58525e5653115c5052"><span class="__cf_email__" data-cfemail="d7a3bfb8bab6a4f9b5b6a5b8bbbeb9e7e197b0bab6bebbf9b4b8ba">[email&#160;protected]</span></a></div>
         <div class="row"><span>Téléphone</span><a href="tel:+33769541473">+33 7 69 54 14 73</a></div>
         <div class="row"><span>Localisation</span><span>Paris / Île-de-France</span></div>
       </div>
@@ -540,6 +583,55 @@
   </footer>
 </main>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}' crossorigin="anonymous"></script>
+
+
+<!-- === Bouton retour en haut === -->
+<button class="back-to-top" type="button" aria-label="Retour en haut" title="Retour en haut">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6.5 11.5 12 5l5.5 6.5"/></svg>
+</button>
+
+<!-- === Animations au scroll et interactions === -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  (() => {
+    // Opt into reveal animations only after the script is running; this preserves a visible fallback.
+    document.body.classList.add('js-enabled');
+    const topButton = document.querySelector('.back-to-top');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Affiche le bouton après 400 px de défilement, sans écouteur coûteux à chaque frame.
+    const toggleTopButton = () => {
+      topButton.classList.toggle('is-visible', window.scrollY > 400);
+    };
+    window.addEventListener('scroll', toggleTopButton, { passive: true });
+    toggleTopButton();
+
+    topButton.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    });
+
+    // Révèle les sections et cartes uniquement lorsqu'elles entrent dans le viewport.
+    const revealTargets = document.querySelectorAll(
+      'main > section, footer, .tcard, .edu-card, .box, .rack'
+    );
+    revealTargets.forEach((element) => element.classList.add('reveal-target'));
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      revealTargets.forEach((element) => element.classList.add('is-visible'));
+      return;
+    }
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+    revealTargets.forEach((element) => revealObserver.observe(element));
+  })();
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
